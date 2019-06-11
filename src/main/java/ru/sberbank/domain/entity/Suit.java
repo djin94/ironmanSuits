@@ -1,4 +1,4 @@
-package domain.entity;
+package ru.sberbank.domain.entity;
 
 import java.util.List;
 import java.util.Objects;
@@ -11,7 +11,7 @@ public class Suit {
 
     private boolean isDeveloped;
 
-    private List<SuitPart> suitParts;
+    private List<SuitPart> suitPart;
 
     private Weapon weapon;
 
@@ -39,28 +39,20 @@ public class Suit {
         isDeveloped = developed;
     }
 
+    public List<SuitPart> getSuitPart() {
+        return suitPart;
+    }
+
+    public void setSuitPart(List<SuitPart> suitPart) {
+        this.suitPart = suitPart;
+    }
+
     public Weapon getWeapon() {
         return weapon;
     }
 
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
-    }
-
-    public List<SuitPart> getSuitParts() {
-        return suitParts;
-    }
-
-    public void setSuitParts(List<SuitPart> suitParts) {
-        this.suitParts = suitParts;
-    }
-
-    public void add(SuitPart suitPart) {
-        suitParts.add(suitPart);
-    }
-
-    public void remove(SuitPart suitPart) {
-        suitParts.remove(suitPart);
     }
 
     @Override

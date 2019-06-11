@@ -1,4 +1,4 @@
-package domain.entity;
+package ru.sberbank.domain.entity;
 
 import java.util.Objects;
 

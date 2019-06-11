@@ -1,10 +1,12 @@
-package domain.entity;
+package ru.sberbank.domain.entity;
 
 import java.util.Objects;
 
 public class Weapon {
 
     private int id;
+
+    private String name;
 
     private int capacityAmmo;
 
@@ -16,6 +18,14 @@ public class Weapon {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getCapacityAmmo() {
@@ -51,6 +61,7 @@ public class Weapon {
     public String toString() {
         return "Weapon{" +
                 "id=" + id +
+                ", name='" + name + '\'' +
                 ", capacityAmmo=" + capacityAmmo +
                 '}';
     }
