@@ -19,29 +19,29 @@ public class SuitRepositoryImpl implements SuitRepository {
 
     @Override
     public Suit create(Suit suit) {
-        String sql = "INSERT INTO SUITS(name, is_developed, weapons_id) VALUES (?, ?, ?)";
-
-        int newSuitId = jdbcTemplate.update(sql, suit.getName(), suit.isDeveloped(), suit.getWeapon().getId());
+        String sql = "INSERT INTO SUITS(name, is_developed) VALUES (?, ?, ?)";
+        int newSuitId = jdbcTemplate.update(sql, suit.getName(), suit.isDeveloped());
         suit.setId(newSuitId);
+        suit.getSuitParts().forEach(suitPart -> createRelationBetweenSuitAndSuitPart(suit.getId(), suitPart.getId()));
         return suit;
     }
 
     @Override
     public void update(Suit suit) {
-        String sql = "UPDATE SUITS SET name = ?, isDeveloped = ?, weapons_id = ? WHERE id=?;";
+        String sql = "UPDATE SUITS SET name = ?, isDeveloped = ? WHERE id=?;";
 
-        jdbcTemplate.update(sql, suit.getName(), suit.isDeveloped(), suit.getWeapon().getId(), suit.getId());
+        jdbcTemplate.update(sql, suit.getName(), suit.isDeveloped(), suit.getId());
     }
 
     @Override
     public Suit findById(int id) {
-        String sql = "SELECT id, name, is_developed, weapons_id FROM SUITS WHERE id=?;";
+        String sql = "SELECT id, name, is_developed FROM SUITS WHERE id=?;";
         return jdbcTemplate.queryForObject(sql, new SuitRowMapper(), id);
     }
 
     @Override
     public List<Suit> findAll() {
-        String sql = "SELECT id, name, is_developed, weapons_id FROM SUITS";
+        String sql = "SELECT id, name, is_developed FROM SUITS";
         return jdbcTemplate.query(sql, new SuitRowMapper());
     }
 
@@ -52,14 +52,19 @@ public class SuitRepositoryImpl implements SuitRepository {
     }
 
     @Override
-    public List<Integer> findSuitPartsForSuit(Suit suit) {
+    public List<Integer> findSuitPartsIdsForSuit(Suit suit) {
         String sql = "SELECT suit_parts_id FROM suits_suit_parts WHERE suits_id = ?";
         return jdbcTemplate.query(sql, (resultSet, i) -> resultSet.getInt("suit_parts_id"), suit.getId());
     }
 
     @Override
     public Suit findByName(String name) {
-        String sql = "SELECT id, name, is_developed, weapons_id FROM SUITS WHERE name=?;";
+        String sql = "SELECT id, name, is_developed FROM SUITS WHERE name=?;";
         return jdbcTemplate.queryForObject(sql, new SuitRowMapper(), name);
+    }
+
+    private void createRelationBetweenSuitAndSuitPart(int suitId, int suitPartId) {
+        String sql = "INSERT INTO suits_suit_parts(suits_id, suit_parts_id) VALUES (?, ?)";
+        jdbcTemplate.update(sql, suitId, suitPartId);
     }
 }

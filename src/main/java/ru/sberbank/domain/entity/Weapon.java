@@ -12,6 +12,10 @@ public class Weapon {
 
     private Ammo ammo;
 
+    private int percentFullnessAmmo;
+
+    private int suitId;
+
     public int getId() {
         return id;
     }
@@ -44,6 +48,22 @@ public class Weapon {
         this.ammo = ammo;
     }
 
+    public int getPercentFullnessAmmo() {
+        return percentFullnessAmmo;
+    }
+
+    public void setPercentFullnessAmmo(int percentFullnessAmmo) {
+        this.percentFullnessAmmo = percentFullnessAmmo;
+    }
+
+    public int getSuitId() {
+        return suitId;
+    }
+
+    public void setSuitId(int suitId) {
+        this.suitId = suitId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,6 +83,7 @@ public class Weapon {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", capacityAmmo=" + capacityAmmo +
+                ", percentFullnessAmmo=" + percentFullnessAmmo +
                 '}';
     }
 }

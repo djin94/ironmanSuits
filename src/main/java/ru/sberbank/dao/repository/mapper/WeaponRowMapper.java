@@ -13,6 +13,7 @@ public class WeaponRowMapper implements RowMapper<Weapon> {
         weapon.setId(resultSet.getInt("id"));
         weapon.setName(resultSet.getString("name"));
         weapon.setCapacityAmmo(resultSet.getInt("capacity_ammo"));
+        weapon.setSuitId(resultSet.getInt("suits_id"));
         return weapon;
     }
 }

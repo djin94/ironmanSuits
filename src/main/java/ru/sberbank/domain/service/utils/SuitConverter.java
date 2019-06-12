@@ -15,7 +15,7 @@ public class SuitConverter {
         suitDTO.setId(suit.getId());
         suitDTO.setDeveloped(suit.isDeveloped());
         suitDTO.setName(suit.getName());
-        suitDTO.setWeapon(suit.getWeapon());
+        suitDTO.setWeapons(suit.getWeapons());
         suitDTO.setSuitParts(suit.getSuitParts());
         return suitDTO;
     }

@@ -9,6 +9,8 @@ import ru.sberbank.domain.entity.Suit;
 import ru.sberbank.domain.entity.Weapon;
 import ru.sberbank.domain.service.WeaponService;
 
+import java.util.List;
+
 @Service
 public class WeaponServiceImpl implements WeaponService {
 
@@ -19,7 +21,7 @@ public class WeaponServiceImpl implements WeaponService {
     private AmmoRepository ammoRepository;
 
     @Override
-    public Weapon findWeaponBySuit(Suit suit) {
+    public List<Weapon> findWeaponBySuit(Suit suit) {
         return weaponRepository.findBySuit(suit);
     }
 

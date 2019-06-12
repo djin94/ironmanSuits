@@ -20,29 +20,29 @@ public class WeaponRepositoryImpl implements WeaponRepository {
 
     @Override
     public Weapon create(Weapon weapon) {
-        String sql = "INSERT INTO WEAPONS(name, capacity_ammo) VALUES (?, ?)";
+        String sql = "INSERT INTO WEAPONS(name, capacity_ammo, suits_id) VALUES (?, ?, ?)";
 
-        int newWeaponId = jdbcTemplate.update(sql, weapon.getName(), weapon.getCapacityAmmo());
+        int newWeaponId = jdbcTemplate.update(sql, weapon.getName(), weapon.getCapacityAmmo(), weapon.getSuitId());
         weapon.setId(newWeaponId);
         return weapon;
     }
 
     @Override
     public void update(Weapon weapon) {
-        String sql = "UPDATE WEAPONS SET name = ?, capacity_ammo = ? WHERE id=?;";
+        String sql = "UPDATE WEAPONS SET name = ?, capacity_ammo = ? , suits_id = ? WHERE id=?;";
 
-        jdbcTemplate.update(sql, weapon.getName(), weapon.getCapacityAmmo(), weapon.getId());
+        jdbcTemplate.update(sql, weapon.getName(), weapon.getCapacityAmmo(), weapon.getSuitId(), weapon.getId());
     }
 
     @Override
     public Weapon findById(int id) {
-        String sql = "SELECT id, name, capacity_ammo FROM WEAPONS WHERE id=?;";
+        String sql = "SELECT id, name, capacity_ammo, suits_id FROM WEAPONS WHERE id=?;";
         return jdbcTemplate.queryForObject(sql, new WeaponRowMapper(), id);
     }
 
     @Override
     public List<Weapon> findAll() {
-        String sql = "SELECT id, name, capacity_ammo FROM WEAPONS";
+        String sql = "SELECT id, name, capacity_ammo, suits_id FROM WEAPONS";
         return jdbcTemplate.query(sql, new WeaponRowMapper());
     }
 
@@ -53,8 +53,8 @@ public class WeaponRepositoryImpl implements WeaponRepository {
     }
 
     @Override
-    public Weapon findBySuit(Suit suit) {
-        String sql = "SELECT id, name, capacity_ammo FROM WEAPONS WHERE id = ?";
-        return jdbcTemplate.queryForObject(sql, new WeaponRowMapper(), suit.getWeapon().getId());
+    public List<Weapon> findBySuit(Suit suit) {
+        String sql = "SELECT id, name, capacity_ammo, suits_id FROM WEAPONS WHERE suits_id = ?";
+        return jdbcTemplate.query(sql, new WeaponRowMapper(), suit.getId());
     }
 }

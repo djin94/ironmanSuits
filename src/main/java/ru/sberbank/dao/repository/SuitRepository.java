@@ -16,7 +16,7 @@ public interface SuitRepository {
 
     void delete(Suit suit);
 
-    List<Integer> findSuitPartsForSuit(Suit suit);
+    List<Integer> findSuitPartsIdsForSuit(Suit suit);
 
     Suit findByName(String name);
 }

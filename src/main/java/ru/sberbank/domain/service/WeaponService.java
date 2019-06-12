@@ -4,8 +4,10 @@ import ru.sberbank.domain.entity.Ammo;
 import ru.sberbank.domain.entity.Suit;
 import ru.sberbank.domain.entity.Weapon;
 
+import java.util.List;
+
 public interface WeaponService {
-    Weapon findWeaponBySuit(Suit suit);
+    List<Weapon> findWeaponBySuit(Suit suit);
 
     Ammo getAmmoForWeapon(Weapon weapon);
 

@@ -13,7 +13,7 @@ public class Suit {
 
     private List<SuitPart> suitParts;
 
-    private Weapon weapon;
+    private List<Weapon> weapons;
 
     public int getId() {
         return id;
@@ -47,12 +47,12 @@ public class Suit {
         this.suitParts = suitParts;
     }
 
-    public Weapon getWeapon() {
-        return weapon;
+    public List<Weapon> getWeapons() {
+        return weapons;
     }
 
-    public void setWeapon(Weapon weapon) {
-        this.weapon = weapon;
+    public void setWeapons(List<Weapon> weapons) {
+        this.weapons = weapons;
     }
 
     @Override

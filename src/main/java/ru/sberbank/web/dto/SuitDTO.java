@@ -15,7 +15,7 @@ public class SuitDTO {
 
     private List<SuitPart> suitParts;
 
-    private Weapon weapon;
+    private List<Weapon> weapons;
 
     private int percentFullnessAmmo;
 
@@ -51,12 +51,12 @@ public class SuitDTO {
         this.suitParts = suitParts;
     }
 
-    public Weapon getWeapon() {
-        return weapon;
+    public List<Weapon> getWeapons() {
+        return weapons;
     }
 
-    public void setWeapon(Weapon weapon) {
-        this.weapon = weapon;
+    public void setWeapons(List<Weapon> weapons) {
+        this.weapons = weapons;
     }
 
     public int getPercentFullnessAmmo() {

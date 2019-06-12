@@ -16,5 +16,5 @@ public interface WeaponRepository {
 
     void delete(Weapon weapon);
 
-    Weapon findBySuit(Suit suit);
+    List<Weapon> findBySuit(Suit suit);
 }
