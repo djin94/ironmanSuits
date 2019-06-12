@@ -1,8 +1,8 @@
 package ru.sberbank.dao.repository.mapper;
 
+import org.springframework.jdbc.core.RowMapper;
 import ru.sberbank.domain.entity.Suit;
 import ru.sberbank.domain.entity.Weapon;
-import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

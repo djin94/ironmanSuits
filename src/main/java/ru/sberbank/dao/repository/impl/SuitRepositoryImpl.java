@@ -28,20 +28,20 @@ public class SuitRepositoryImpl implements SuitRepository {
 
     @Override
     public void update(Suit suit) {
-        String sql = "UPDATE SUITS SET name = ?, isDeveloped = ?, weapon_id = ? WHERE id=?;";
+        String sql = "UPDATE SUITS SET name = ?, isDeveloped = ?, weapons_id = ? WHERE id=?;";
 
-        jdbcTemplate.update(suit.getName(), suit.isDeveloped(), suit.getWeapon().getId(), suit.getId());
+        jdbcTemplate.update(sql, suit.getName(), suit.isDeveloped(), suit.getWeapon().getId(), suit.getId());
     }
 
     @Override
     public Suit findById(int id) {
-        String sql = "SELECT id, name, is_developed FROM SUITS WHERE id=?;";
+        String sql = "SELECT id, name, is_developed, weapons_id FROM SUITS WHERE id=?;";
         return jdbcTemplate.queryForObject(sql, new SuitRowMapper(), id);
     }
 
     @Override
     public List<Suit> findAll() {
-        String sql = "SELECT id, name, is_developed FROM SUITS";
+        String sql = "SELECT id, name, is_developed, weapons_id FROM SUITS";
         return jdbcTemplate.query(sql, new SuitRowMapper());
     }
 
@@ -49,5 +49,17 @@ public class SuitRepositoryImpl implements SuitRepository {
     public void delete(Suit suit) {
         String sql = "DELETE FROM SUITS WHERE id=?";
         jdbcTemplate.update(sql, suit.getId());
+    }
+
+    @Override
+    public List<Integer> findSuitPartsForSuit(Suit suit) {
+        String sql = "SELECT suit_parts_id FROM suits_suit_parts WHERE suits_id = ?";
+        return jdbcTemplate.query(sql, (resultSet, i) -> resultSet.getInt("suit_parts_id"), suit.getId());
+    }
+
+    @Override
+    public Suit findByName(String name) {
+        String sql = "SELECT id, name, is_developed, weapons_id FROM SUITS WHERE name=?;";
+        return jdbcTemplate.queryForObject(sql, new SuitRowMapper(), name);
     }
 }

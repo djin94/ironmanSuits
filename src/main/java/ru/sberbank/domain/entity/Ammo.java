@@ -3,7 +3,7 @@ package ru.sberbank.domain.entity;
 
 import java.util.Objects;
 
-public class Ammo {
+public class Ammo implements Cloneable {
 
     private int id;
 
@@ -60,10 +60,21 @@ public class Ammo {
 
     @Override
     public String toString() {
+
         return "Ammo{" +
                 "id=" + id +
                 ", amount=" + amount +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public Object clone() {
+        Ammo ammo = new Ammo();
+        ammo.id = this.id;
+        ammo.name = this.name;
+        ammo.amount = this.amount;
+        ammo.weaponId = this.weaponId;
+        return ammo;
     }
 }

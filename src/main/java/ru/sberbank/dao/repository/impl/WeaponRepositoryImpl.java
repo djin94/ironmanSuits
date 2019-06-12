@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.sberbank.dao.repository.WeaponRepository;
 import ru.sberbank.dao.repository.mapper.WeaponRowMapper;
+import ru.sberbank.domain.entity.Suit;
 import ru.sberbank.domain.entity.Weapon;
 
 import java.util.List;
@@ -49,5 +50,11 @@ public class WeaponRepositoryImpl implements WeaponRepository {
     public void delete(Weapon weapon) {
         String sql = "DELETE FROM WEAPONS WHERE id=?";
         jdbcTemplate.update(sql, weapon.getId());
+    }
+
+    @Override
+    public Weapon findBySuit(Suit suit) {
+        String sql = "SELECT id, name, capacity_ammo FROM WEAPONS WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, new WeaponRowMapper(), suit.getWeapon().getId());
     }
 }

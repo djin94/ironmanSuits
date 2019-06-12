@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.sberbank.dao.repository.AmmoRepository;
 import ru.sberbank.dao.repository.mapper.AmmoRowMapper;
 import ru.sberbank.domain.entity.Ammo;
+import ru.sberbank.domain.entity.Weapon;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class AmmoRepositoryImpl implements AmmoRepository {
 
     @Override
     public void update(Ammo ammo) {
-        String sql = "UPDATE AMMO SET amount = ?, name = ?, weapon_id = ? WHERE id=?;";
+        String sql = "UPDATE AMMO SET amount = ?, name = ?, weapons_id = ? WHERE id=?;";
 
         jdbcTemplate.update(sql, ammo.getAmount(), ammo.getName(), ammo.getWeaponId(), ammo.getId());
     }
@@ -53,8 +54,8 @@ public class AmmoRepositoryImpl implements AmmoRepository {
     }
 
     @Override
-    public Ammo findByWeaponId(int weaponId) {
+    public Ammo findByWeapon(Weapon weapon) {
         String sql = "SELECT id, amount, name, weapons_id FROM AMMO WHERE weapons_id=?;";
-        return jdbcTemplate.queryForObject(sql, new AmmoRowMapper(), weaponId);
+        return jdbcTemplate.queryForObject(sql, new AmmoRowMapper(), weapon.getId());
     }
 }

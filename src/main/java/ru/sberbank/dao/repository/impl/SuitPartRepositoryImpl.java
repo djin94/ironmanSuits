@@ -19,7 +19,7 @@ public class SuitPartRepositoryImpl implements SuitPartRepository {
 
     @Override
     public SuitPart create(SuitPart suitPart) {
-        String sql = "INSERT INTO SUITPARTS(name) VALUES (?)";
+        String sql = "INSERT INTO SUIT_PARTS(name) VALUES (?)";
 
         int newSuitPartId = jdbcTemplate.update(sql, suitPart.getName());
         suitPart.setId(newSuitPartId);
@@ -28,26 +28,26 @@ public class SuitPartRepositoryImpl implements SuitPartRepository {
 
     @Override
     public void update(SuitPart suitPart) {
-        String sql = "UPDATE SUITPARTS SET name = ? WHERE id=?;";
+        String sql = "UPDATE SUIT_PARTS SET name = ? WHERE id=?;";
 
         jdbcTemplate.update(sql, suitPart.getName());
     }
 
     @Override
     public SuitPart findById(int id) {
-        String sql = "SELECT id, name FROM SUITPARTS WHERE id=?;";
+        String sql = "SELECT id, name FROM SUIT_PARTS WHERE id=?;";
         return jdbcTemplate.queryForObject(sql, new SuitPartRowMapper(), id);
     }
 
     @Override
     public List<SuitPart> findAll() {
-        String sql = "SELECT id, name FROM SUITPARTS";
+        String sql = "SELECT id, name FROM SUIT_PARTS";
         return jdbcTemplate.query(sql, new SuitPartRowMapper());
     }
 
     @Override
     public void delete(SuitPart suitPart) {
-        String sql = "DELETE FROM SUITPARTS WHERE id=?";
+        String sql = "DELETE FROM SUIT_PARTS WHERE id=?";
         jdbcTemplate.update(sql, suitPart.getId());
     }
 }

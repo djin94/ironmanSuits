@@ -1,10 +1,12 @@
-package ru.sberbank.domain.entity;
+package ru.sberbank.web.dto;
+
+import ru.sberbank.domain.entity.SuitPart;
+import ru.sberbank.domain.entity.Weapon;
 
 import java.util.List;
 import java.util.Objects;
 
-public class Suit {
-
+public class SuitDTO {
     private int id;
 
     private String name;
@@ -14,6 +16,8 @@ public class Suit {
     private List<SuitPart> suitParts;
 
     private Weapon weapon;
+
+    private int percentFullnessAmmo;
 
     public int getId() {
         return id;
@@ -55,12 +59,20 @@ public class Suit {
         this.weapon = weapon;
     }
 
+    public int getPercentFullnessAmmo() {
+        return percentFullnessAmmo;
+    }
+
+    public void setPercentFullnessAmmo(int percentFullnessAmmo) {
+        this.percentFullnessAmmo = percentFullnessAmmo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Suit suit = (Suit) o;
-        return id == suit.id;
+        SuitDTO suitDTO = (SuitDTO) o;
+        return id == suitDTO.id;
     }
 
     @Override

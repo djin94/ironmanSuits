@@ -6,7 +6,7 @@ CREATE TABLE weapons (
 
 CREATE TABLE ammo (
 	id SERIAL PRIMARY KEY,
-	name VARCHAR (255) NOT NULL,
+	name VARCHAR (255) NOT NULL UNIQUE,
 	amount INTEGER NOT NULL,
 	weapons_id INTEGER UNIQUE REFERENCES weapons(id)
 );
@@ -15,7 +15,7 @@ CREATE TABLE suits (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(255) NOT NULL,
 	is_developed BOOLEAN,
-	weapon_id INTEGER REFERENCES weapons(id)
+	weapons_id INTEGER REFERENCES weapons(id)
 ); 
 
 CREATE TABLE suit_parts (

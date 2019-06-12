@@ -1,5 +1,6 @@
 package ru.sberbank.dao.repository;
 
+import ru.sberbank.domain.entity.Suit;
 import ru.sberbank.domain.entity.Weapon;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface WeaponRepository {
     List<Weapon> findAll();
 
     void delete(Weapon weapon);
+
+    Weapon findBySuit(Suit suit);
 }
