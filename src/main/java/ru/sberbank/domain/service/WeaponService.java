@@ -12,4 +12,6 @@ public interface WeaponService {
     Ammo getAmmoForWeapon(Weapon weapon);
 
     int computePercentFullnessAmmoInWeapon(Weapon weapon);
+
+    Weapon save(Weapon weapon);
 }

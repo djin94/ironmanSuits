@@ -27,17 +27,19 @@ public class WeaponServiceImpl implements WeaponService {
 
     @Override
     public Ammo getAmmoForWeapon(Weapon weapon) {
-        Ammo ammoForWeapon;
+        Ammo ammoForWeapon = null;
         Ammo ammo = ammoRepository.findByWeapon(weapon);
-        if (ammo.getAmount() >= weapon.getCapacityAmmo()) {
-            ammo.setAmount(ammo.getAmount() - weapon.getCapacityAmmo());
-            ammoRepository.update(ammo);
-            ammo.setAmount(weapon.getCapacityAmmo());
-            ammoForWeapon = ammo;
-        } else {
-            ammoForWeapon = (Ammo) ammo.clone();
-            ammo.setAmount(0);
-            ammoRepository.update(ammo);
+        if (ammo != null) {
+            if (ammo.getAmount() >= weapon.getCapacityAmmo()) {
+                ammo.setAmount(ammo.getAmount() - weapon.getCapacityAmmo());
+                ammoRepository.update(ammo);
+                ammo.setAmount(weapon.getCapacityAmmo());
+                ammoForWeapon = ammo;
+            } else {
+                ammoForWeapon = (Ammo) ammo.clone();
+                ammo.setAmount(0);
+                ammoRepository.update(ammo);
+            }
         }
         return ammoForWeapon;
     }
@@ -45,5 +47,14 @@ public class WeaponServiceImpl implements WeaponService {
     @Override
     public int computePercentFullnessAmmoInWeapon(Weapon weapon) {
         return (int) ((((double) weapon.getAmmo().getAmount()) / weapon.getCapacityAmmo()) * 100);
+    }
+
+    @Override
+    public Weapon save(Weapon weapon) {
+        weapon.getAmmo().setAmount(0);
+        if (weapon.getAmmo() != null) {
+            ammoRepository.create(weapon.getAmmo());
+        }
+        return weaponRepository.create(weapon);
     }
 }

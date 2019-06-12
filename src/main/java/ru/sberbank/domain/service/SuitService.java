@@ -8,7 +8,7 @@ import java.util.Map;
 public interface SuitService {
     List<Suit> getAll();
 
-    Suit saveSuit(Suit suit);
+    Suit save(Suit suit);
 
     Suit getSuitByName(String name);
 

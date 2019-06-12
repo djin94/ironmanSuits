@@ -30,7 +30,7 @@ public class SuitServiceImpl implements SuitService {
     @Override
     public List<Suit> getAll() {
         List<Suit> suits = suitRepository.findAll();
-        suits.stream().forEach(suit -> {
+        suits.forEach(suit -> {
             suit.setSuitParts(getSuitPartsForSuit(suit));
             suit.setWeapons(getWeaponsForSuit(suit));
         });
@@ -38,25 +38,30 @@ public class SuitServiceImpl implements SuitService {
     }
 
     @Override
-    public Suit saveSuit(Suit suit) {
+    public Suit save(Suit suit) {
         suit.setSuitParts(suit.getSuitParts().stream()
                 .collect(ArrayList::new, (suitParts, suitPart) -> suitParts.add(suitPartRepository.create(suitPart)), ArrayList::addAll));
+        suit.getWeapons().forEach(weaponService::save);
         return suitRepository.create(suit);
     }
 
     @Override
     public Suit getSuitByName(String name) {
         Suit suit = suitRepository.findByName(name);
-        suit.setSuitParts(getSuitPartsForSuit(suit));
-        suit.setWeapons(getWeaponsForSuit(suit));
+        if (suit != null) {
+            suit.setSuitParts(getSuitPartsForSuit(suit));
+            suit.setWeapons(getWeaponsForSuit(suit));
+        }
         return suit;
     }
 
     @Override
     public Suit getSuitById(int id) {
         Suit suit = suitRepository.findById(id);
-        suit.setSuitParts(getSuitPartsForSuit(suit));
-        suit.setWeapons(getWeaponsForSuit(suit));
+        if (suit != null) {
+            suit.setSuitParts(getSuitPartsForSuit(suit));
+            suit.setWeapons(getWeaponsForSuit(suit));
+        }
         return suit;
     }
 
@@ -75,8 +80,10 @@ public class SuitServiceImpl implements SuitService {
 
     private List<Weapon> getWeaponsForSuit(Suit suit) {
         List<Weapon> weapons = weaponService.findWeaponBySuit(suit);
-        weapons.forEach(weapon -> weapon.setAmmo(weaponService.getAmmoForWeapon(weapon)));
-        weapons.forEach(weapon -> weapon.setPercentFullnessAmmo(weaponService.computePercentFullnessAmmoInWeapon(weapon)));
+        if (weapons != null) {
+            weapons.forEach(weapon -> weapon.setAmmo(weaponService.getAmmoForWeapon(weapon)));
+            weapons.forEach(weapon -> weapon.setPercentFullnessAmmo(weaponService.computePercentFullnessAmmoInWeapon(weapon)));
+        }
         return weapons;
     }
 

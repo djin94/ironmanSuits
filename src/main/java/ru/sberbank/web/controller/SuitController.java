@@ -41,4 +41,10 @@ public class SuitController {
     public List<Suit> searchBySuitPartsAndWeapons(@RequestBody List<String> requiredSuitParts, @RequestBody Map<String, Integer> requiredWeapons) {
         return suitService.searchBySuitPartsAndWeapons(requiredSuitParts, requiredWeapons);
     }
+
+    @PostMapping("/save")
+    @ApiOperation(value = "Save new suit")
+    public Suit saveSuit(@RequestBody Suit suit) {
+        return suitService.save(suit);
+    }
 }
