@@ -38,7 +38,7 @@ public class AmmoRepositoryImpl implements AmmoRepository {
     @Override
     public Ammo findById(int id) {
         String sql = "SELECT id, amount, name, weapons_id FROM AMMO WHERE id=?;";
-        return jdbcTemplate.queryForObject(sql, new AmmoRowMapper(), id);
+        return jdbcTemplate.query(sql, new AmmoRowMapper(), id).stream().findFirst().orElse(null);
     }
 
     @Override
@@ -56,6 +56,6 @@ public class AmmoRepositoryImpl implements AmmoRepository {
     @Override
     public Ammo findByWeapon(Weapon weapon) {
         String sql = "SELECT id, amount, name, weapons_id FROM AMMO WHERE weapons_id=?;";
-        return jdbcTemplate.queryForObject(sql, new AmmoRowMapper(), weapon.getId());
+        return jdbcTemplate.query(sql, new AmmoRowMapper(), weapon.getId()).stream().findFirst().orElse(null);
     }
 }

@@ -37,7 +37,7 @@ public class WeaponRepositoryImpl implements WeaponRepository {
     @Override
     public Weapon findById(int id) {
         String sql = "SELECT id, name, capacity_ammo, suits_id FROM WEAPONS WHERE id=?;";
-        return jdbcTemplate.queryForObject(sql, new WeaponRowMapper(), id);
+        return jdbcTemplate.query(sql, new WeaponRowMapper(), id).stream().findFirst().orElse(null);
     }
 
     @Override

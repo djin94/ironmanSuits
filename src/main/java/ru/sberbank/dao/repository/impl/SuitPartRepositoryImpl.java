@@ -36,7 +36,7 @@ public class SuitPartRepositoryImpl implements SuitPartRepository {
     @Override
     public SuitPart findById(int id) {
         String sql = "SELECT id, name FROM SUIT_PARTS WHERE id=?;";
-        return jdbcTemplate.queryForObject(sql, new SuitPartRowMapper(), id);
+        return jdbcTemplate.query(sql, new SuitPartRowMapper(), id).stream().findFirst().orElse(null);
     }
 
     @Override

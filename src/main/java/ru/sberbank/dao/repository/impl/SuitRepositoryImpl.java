@@ -36,7 +36,7 @@ public class SuitRepositoryImpl implements SuitRepository {
     @Override
     public Suit findById(int id) {
         String sql = "SELECT id, name, is_developed FROM SUITS WHERE id=?;";
-        return jdbcTemplate.queryForObject(sql, new SuitRowMapper(), id);
+        return jdbcTemplate.query(sql, new SuitRowMapper(), id).stream().findFirst().orElse(null);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class SuitRepositoryImpl implements SuitRepository {
     @Override
     public Suit findByName(String name) {
         String sql = "SELECT id, name, is_developed FROM SUITS WHERE name=?;";
-        return jdbcTemplate.queryForObject(sql, new SuitRowMapper(), name);
+        return jdbcTemplate.query(sql, new SuitRowMapper(), name).stream().findFirst().orElse(null);
     }
 
     private void createRelationBetweenSuitAndSuitPart(int suitId, int suitPartId) {
